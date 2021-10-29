@@ -10,9 +10,6 @@ import (
 	"strings"
 )
 
-const fizz = 3
-const buzz = 5
-
 func main() {
 	defer func() {
 		if err := recover(); err != nil {
@@ -24,15 +21,34 @@ func main() {
 
 	// Get numbers from console inputs.
 	fmt.Print("Enter first number:")
-	firstInput, _ := reader.ReadString('\n')
-	firstNumber, _ := strconv.ParseInt(strings.TrimSpace(firstInput), 10, 64)
+
+	firstInput, err := reader.ReadString('\n')
+	if err != nil {
+		log.Println("error occurred:", err)
+		return
+	}
+
+	firstNumber, err := strconv.ParseInt(strings.TrimSpace(firstInput), 10, 64)
+	if err != nil {
+		log.Println("error occurred:", err)
+		return
+	}
 
 	fmt.Print("Enter second number:")
-	secondInput, _ := reader.ReadString('\n')
-	secondNumber, _ := strconv.ParseInt(strings.TrimSpace(secondInput), 10, 64)
+	secondInput, err := reader.ReadString('\n')
+	if err != nil {
+		log.Println("error occurred:", err)
+		return
+	}
+
+	secondNumber, err := strconv.ParseInt(strings.TrimSpace(secondInput), 10, 64)
+	if err != nil {
+		log.Println("error occurred:", err)
+		return
+	}
 
 	// Validate numbers and get result.
-	err := validateNumbers(firstNumber, secondNumber)
+	err = validateNumbers(firstNumber, secondNumber)
 	if err != nil {
 		log.Println("error occurred:", err)
 		return
@@ -43,24 +59,24 @@ func main() {
 
 // Validate numbers.
 func validateNumbers(firstNumber, secondNumber int64) error {
-	var err error = nil
-
 	if firstNumber <= 0 || secondNumber <= 0 {
-		panic("Wrong or negative number")
+		return errors.New("wrong or negative number")
 	}
 	if secondNumber <= firstNumber {
-		panic("Second number should be bigger then first")
+		return errors.New("second number should be bigger then first")
 	}
 	if secondNumber - firstNumber > 1000 {
-		err = errors.New("Too large range")
+		return errors.New("too large range")
 	}
 
-	return err
+	return nil
 }
 
 // Create result string.
 func getResultString(firstNumber, seconNumber int64) string {
 	var resultSlice []string
+	const fizz = 3
+	const buzz = 5
 
 	// Check for fizz, buzz and create result string.
 	for i := firstNumber; i <= seconNumber; i++ {

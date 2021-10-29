@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	testpack.PrintHemllo()
+	testpack.Buu()
 
 	reader := bufio.NewReader(os.Stdin)
 

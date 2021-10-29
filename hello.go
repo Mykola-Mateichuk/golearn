@@ -11,12 +11,6 @@ import (
 )
 
 func main() {
-	defer func() {
-		if err := recover(); err != nil {
-			log.Println("panic occurred:", err)
-		}
-	}()
-
 	reader := bufio.NewReader(os.Stdin)
 
 	// Get numbers from console inputs.

@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
+	"github.com/Mykola-Mateichuk/golearn/testpack"
 	"log"
 	"os"
 	"strconv"
@@ -11,6 +12,8 @@ import (
 )
 
 func main() {
+	testpack.PrintHemllo()
+
 	reader := bufio.NewReader(os.Stdin)
 
 	// Get numbers from console inputs.

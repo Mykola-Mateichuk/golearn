@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
-	"github.com/Mykola-Mateichuk/golearn/hasher"
+	"github.com/Mykola-Mateichuk/golearn/pkg/hasher"
 	"log"
 	"os"
 	"strconv"

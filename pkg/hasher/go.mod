@@ -1,4 +1,4 @@
-module github.com/Mykola-Mateichuk/golearn/hasher
+module github.com/Mykola-Mateichuk/golearn/pkg/hasher
 
 go 1.17
 

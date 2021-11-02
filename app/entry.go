@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
+	"github.com/Mykola-Mateichuk/golearn/hasher"
 	"log"
 	"os"
 	"strconv"
@@ -11,6 +12,10 @@ import (
 )
 
 func main() {
+	// Test hasher package.
+	hash, _ := hasher.HashPassword("123")
+	fmt.Println(hash)
+
 	reader := bufio.NewReader(os.Stdin)
 
 	// Get numbers from console inputs.

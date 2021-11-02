@@ -1,0 +1,4 @@
+github.com/Mykola-Mateichuk/golearn/hasher v0.0.0-20211101174921-251d1d2fdafa h1:rgIwwxKPH5P2knWu13xuOKxQ5DX3eYITw+tsCt4w18c=
+github.com/Mykola-Mateichuk/golearn/hasher v0.0.0-20211101174921-251d1d2fdafa/go.mod h1:co6U0XOSsQLkezbybpJg/QP0Baf+kyyVrnmZV9AS58Q=
+golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 h1:7I4JAnoQBe7ZtJcBaYHi5UtiO8tQHbUSXxL+pnGRANg=
+golang.org/x/crypto v0.0.0-20210921155107-089bfa567519/go.mod h1:GvvjBRRGRdwPK5ydBHafDWAxML/pGHZbMvKqRZ5+Abc=

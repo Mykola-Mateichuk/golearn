@@ -47,6 +47,10 @@ Don't put a lot of code in the application directory. If you think the code can 
 
 It's common to have a small `main` function that imports and invokes the code from the `/internal` and `/pkg` directories and nothing else.
 
+The entry point placed into internal/app/entry.go file.
+
+So now you can run this project with next command - go run internal/app/*
+
 See the [`/cmd`](cmd/README.md) directory for examples.
 
 ### `/internal`

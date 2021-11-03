@@ -2,4 +2,4 @@ module github.com/Mykola-Mateichuk/golearn
 
 go 1.14
 
-require github.com/Mykola-Mateichuk/golearn/pkg/hasher v0.0.0-20211102130827-7aef7793b5e7
+require golang.org/x/crypto v0.0.0-20210921155107-089bfa567519

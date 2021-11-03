@@ -1,6 +1,16 @@
+// Here can be some copyrights.
+
+// Package hasher provide functionality to dial with passwords. It is meant to
+// help everyone work with passwords and passwords hashes.
+//
+// Notice that you should not extend it and place some other functionality.
+//
+// If you have any suggestion or comment, please feel free to open an issue on
+// this tutorial's GitHub page!
+//
+// By Mykola Mateichuk
 package hasher
 
-// this package is used for dial with passwords
 import (
 	"golang.org/x/crypto/bcrypt"
 )

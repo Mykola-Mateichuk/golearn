@@ -15,9 +15,7 @@ import (
 // Provide server functionality.
 func main() {
 	repo := repository.NewMemoryStorage()
-	userservice := service.UserService{
-		Repo: repo,
-	}
+	userservice := service.NewUserService(repo)
 	u := handler.UserServer{
 		Userservice: userservice,
 	}

@@ -4,6 +4,7 @@ package service
 import (
 	"errors"
 	"fmt"
+	"github.com/Mykola-Mateichuk/golearn/internal/hasher"
 	"github.com/Mykola-Mateichuk/golearn/internal/model"
 )
 
@@ -15,7 +16,14 @@ type Repository interface {
 
 // UserService contain repository link.
 type UserService struct {
-	Repo Repository
+	repo Repository
+}
+
+// NewUserService create user service.
+func NewUserService(repo Repository) UserService {
+	return UserService{
+		repo: repo,
+	}
 }
 
 // AddUser validate and added new user.
@@ -25,12 +33,18 @@ func (uservice UserService) AddUser (user model.User) (model.User, error) {
 		return user, err
 	}
 
-	return uservice.Repo.AddUser(user)
+	// Add password hash.
+	user.Password, _ = hasher.HashPassword(user.Password)
+	if err != nil {
+		return user, err
+	}
+
+	return uservice.repo.AddUser(user)
 }
 
 // GetUserList create list of all existing users.
 func (uservice UserService) GetUserList () ([]model.User, error) {
-	return uservice.Repo.GetUsers()
+	return uservice.repo.GetUsers()
 }
 
 // ValidateNewUser check if user is
@@ -57,7 +71,12 @@ func (uservice UserService) GetUserIdByName(user model.User) (string, error) {
 	}
 
 	for i := range users {
-		if users[i].UserName == user.UserName && users[i].Password == user.Password {
+		isPasswordCorect := hasher.CheckPasswordHash(user.Password, users[i].Password)
+		if err != nil {
+			return id, err
+		}
+
+		if users[i].UserName == user.UserName && isPasswordCorect {
 			id = users[i].Id
 		}
 	}

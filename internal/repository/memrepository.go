@@ -10,7 +10,8 @@ type MemoryUserStorage struct {
 
 // NewMemoryStorage construct new object.
 func NewMemoryStorage() *MemoryUserStorage {
-	return &MemoryUserStorage{}
+	var users []model.User
+	return &MemoryUserStorage{Users: users}
 }
 
 // AddUser append new user to storage.

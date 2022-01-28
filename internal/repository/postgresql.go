@@ -31,6 +31,20 @@ func (mstorage *PostgreSqlUserStorage) AddUser(user model.User) (model.User, err
 	return user, nil
 }
 
+// GetUserByName return all users.
+func (mstorage *PostgreSqlUserStorage) GetUserByName(name string) (model.User, error) {
+	user := model.User{}
+	row := mstorage.DB.QueryRow("SELECT * FROM users WHERE name=$1", name)
+
+	err := row.Scan(&user.Id, &user.UserName, &user.Password)
+	if err != nil {
+		fmt.Println(err)
+		return user, err
+	}
+
+	return user, nil
+}
+
 // GetUsers return all users.
 func (mstorage *PostgreSqlUserStorage) GetUsers() ([]model.User, error) {
 	var users []model.User

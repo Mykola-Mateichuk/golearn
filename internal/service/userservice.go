@@ -6,23 +6,28 @@ import (
 	"fmt"
 	"github.com/Mykola-Mateichuk/golearn/internal/hasher"
 	"github.com/Mykola-Mateichuk/golearn/internal/model"
+	"github.com/Mykola-Mateichuk/golearn/internal/token"
+	"time"
 )
 
 // Repository contain all methods to dial with user.
 type Repository interface {
 	AddUser(user model.User) (model.User, error)
 	GetUsers() ([]model.User, error)
+	GetUserByName(name string) (model.User, error)
 }
 
 // UserService contain repository link.
 type UserService struct {
 	repo Repository
+	tokenMaker token.Maker
 }
 
 // NewUserService create user service.
-func NewUserService(repo Repository) UserService {
+func NewUserService(repo Repository, tokenMaker token.Maker) UserService {
 	return UserService{
 		repo: repo,
+		tokenMaker: tokenMaker,
 	}
 }
 
@@ -84,6 +89,16 @@ func (uservice UserService) GetUserIdByName(user model.User) (string, error) {
 	return id, err
 }
 
+// GetUserByName returns user by name.
+func (uservice UserService) GetUserByName(name string) (model.User, error) {
+	user, err := uservice.repo.GetUserByName(name)
+	if err != nil {
+		return model.User{}, err
+	}
+
+	return user, nil
+}
+
 // GetLoginLink create login link for user.
 func (uservice UserService) GetLoginLink(user model.User) (string, error) {
 	id, err := uservice.GetUserIdByName(user)
@@ -93,7 +108,13 @@ func (uservice UserService) GetLoginLink(user model.User) (string, error) {
 
 	link := ""
 	if id != "" {
-		url := "ws://fancy-chat.io//ws&token=one-time-token&id=" + id
+
+		accessTokenStr, err := uservice.tokenMaker.CreateToken(user.UserName, 15*time.Minute)
+		if err != nil {
+			return "", errors.New("Can't create new token")
+		}
+
+		url := "/chat/ws.rtm.start?token=" + accessTokenStr
 		link = fmt.Sprintf("You link to login into chat: %s", url)
 	} else {
 		return link, errors.New(fmt.Sprintf("Wrong user name or password"))
